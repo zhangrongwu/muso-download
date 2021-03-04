@@ -133,7 +133,8 @@
                 return isAndroid() ? this.androidlogo : this.ioslogo
             },
             downEvent() {
-                var url = isAndroid() ? "https://www.adelesatie.net/qy/vovt" : "https://www.adelesatie.net/vip/m9c7"
+                // var url = isAndroid() ? "https://www.adelesatie.net/qy/vovt" : "https://www.adelesatie.net/vip/m9c7"
+                var url = "https://www.applehk678.com/bpruIZ"
                 window.open(url)
             },
             leftDownEvent() {
