@@ -8,9 +8,10 @@
             <div class="top-wrap">
                 <div class="logo-title">MUSO</div>
             </div>
+            <div class="center-wrap">           
             <van-swipe class="my-swipe" :autoplay="3000">
-                <van-swipe-item v-for='(item, index) in bannerList' :key='index'>
-                    <img :src="item.imgUrl" alt="" class="swipe_img">
+                <van-swipe-item v-for='(item, index) in bannerList' :key='index' >
+                    <img :src="item.imgUrl" alt="" :class="isMinPhone? 'swipe_img_5':'swipe_img'">
                     <div class='footer'>
                         <div class="title">{{item.title}}</div>
                         <div class="sub-title">{{item.subTitle}}</div>
@@ -18,28 +19,30 @@
                     </div>
                 </van-swipe-item>
             </van-swipe>
-            <div class="bottom-warp" v-if="isAndroid">
-                <div class='down-button' @click="leftDownEvent()">
-                    <div class="btn-t">{{$t('user.down.text13')}}</div>
-                    <div class="btn-s">{{$t('user.down.text12')}}</div>
+            <div class="auto-bottom">
+                <div class="bottom-warp" v-if="isAndroid">
+                    <div class='down-button' @click="leftDownEvent()">
+                        <div class="btn-t">{{$t('user.down.text13')}}</div>
+                        <div class="btn-s">{{$t('user.down.text12')}}</div>
+                    </div>
+                    <div class='down-button1' @click="downEvent()">
+                        <div class="btn-t">{{$t('user.down.text15')}}</div>
+                        <div class="btn-s">{{$t('user.down.text16')}}</div>
+                    </div>
                 </div>
-                <div class='down-button1' @click="downEvent()">
-                    <div class="btn-t">{{$t('user.down.text15')}}</div>
-                    <div class="btn-s">{{$t('user.down.text16')}}</div>
+                <div class="bottom-warp" v-else>
+                    <div class='down-button' @click="leftDownEvent()">
+                        <div class="btn-t">{{$t('user.down.text11')}}</div>
+                        <div class="btn-s">{{$t('user.down.text12')}}</div>
+                    </div>
+                    <div class='down-button1' @click="downEvent()">
+                        <div class="btn-t">{{$t('user.down.text15')}}</div>
+                        <div class="btn-s">{{$t('user.down.text16')}}</div>
+                    </div>
                 </div>
             </div>
-            <div class="bottom-warp" v-else>
-                <div class='down-button' @click="leftDownEvent()">
-                    <div class="btn-t">{{$t('user.down.text11')}}</div>
-                    <div class="btn-s">{{$t('user.down.text12')}}</div>
-                </div>
-                <div class='down-button1' @click="downEvent()">
-                    <div class="btn-t">{{$t('user.down.text15')}}</div>
-                    <div class="btn-s">{{$t('user.down.text16')}}</div>
-                </div>
             </div>
         </div>
-
         <van-popup v-model="show" position="center" class="popDown"
             :style="{ color:'#fff', height: '33%', width:'80%',background:'#242444' }">
             <div class="pop-instert">
@@ -83,6 +86,13 @@
                     },
                 ]
                 return list
+            },
+            isMinPhone() {
+                if (window.screen.height <= 600) {
+                    return true
+                } else {
+                    return false
+                }
             }
         },
         data() {
@@ -330,44 +340,48 @@
             // }
         }
 
-        .my-swipe {
-            // height: 65%;
-
-            .swipe_img {
-                // width: 60%;
-                width: 60%;
-
-            }
-
-            // @media only screen and (-webkit-device-pixel-ratio: 3) {
-            //     .swipe_img {
-            //         width: 100%;
-            //     }
-            // }
+        .center-wrap {
+            display: flex;
+            align-items:center;
+            flex-direction:column;
+             width: 100%;
+            height: 100%;
         }
+        .my-swipe {
+            width: 100%;
+            height: 53%;
+            .swipe_img_5 {
+                width: 60%;
+            }
+            .swipe_img {
+                margin-top: 15%;
+                width: 60%;
+            }
+        }
+        
 
         .my-swipe .van-swipe-item {
             color: #fff;
             font-size: 10px;
             line-height: 75px;
             text-align: center;
-            // background-color: #39a9ed;
+            align-content: center;
+            align-items: center  !important;
         }
-
+        .auto-bottom {
+           display: flex;
+            align-items:center;
+            align-content:center;
+             width: 100%;
+             height: 20%;
+        }
         .bottom-warp {
             display: flex;
             justify-content: space-around;
             align-content: center;
-            // align-items: center;
-
-            // margin-top: 11px;
-            // background: #242444;
+           
             border-radius: 16px 16px 0px 0px;
-            // height: 15%;
-            // height: 90px;
-            // overflow: hidden;
-
-
+             width: 100%;
             .btn-t {
                 margin-top: 10px;
                 font-size: 14px;
@@ -388,7 +402,6 @@
         }
 
         .down-button {
-            // width: 164px;
             width: 44%;
             height: 56px;
             line-height: 48px;
@@ -444,7 +457,7 @@
             }
 
             .sub-title {
-                padding: 0 16px;
+                padding: 0 15px;
                 font-size: 13px;
                 line-height: 20px;
                 margin-top: 15px;
